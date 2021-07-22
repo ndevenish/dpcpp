@@ -13,21 +13,7 @@ constexpr auto GRAY = "\033[37m";
 constexpr auto BOLD = "\033[1m";
 constexpr auto NC = "\033[0m";
 
-// class selector_enumerator : public device_selector
-
-template <auto query, typename T>
-void do_query(const T& obj_to_query, const std::string& name, int indent = 4) {
-  cout << std::string(indent, ' ') << name << " is '"
-       << obj_to_query.template get_info<query>() << "'\n";
-}
-
 int main(void) {
-  //     for (auto const & this_platform : platform::get_platforms() ) {
-  //         cout << "Found platform:\n";
-  //         cout << "    name: " << get_info<info::platform::name>()
-  //     }
-  // }
-
   // Loop through the available platforms
   for (auto const& platform : platform::get_platforms()) {
     cout << "\n";
@@ -64,6 +50,12 @@ int main(void) {
       cout << GRAY << "    partition_max_sub_devices: " << NC
            << device.get_info<info::device::partition_max_sub_devices>()
            << "\n";
+      cout << GRAY << "                   Extensions:\n";
+      for (auto const& extension :
+           device.get_info<info::device::extensions>()) {
+        cout << "                       " << extension << "\n";
+      }
+      cout << NC;
     }
   }
   cout << "\n";
