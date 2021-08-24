@@ -40,6 +40,9 @@ int main(void) {
            << device.get_info<info::device::vendor>() << "\n";
       cout << GRAY << "                        Driver " << NC
            << device.get_info<info::device::driver_version>() << "\n";
+      cout << GRAY << "                         OpenCL " << NC
+           << device.get_info<info::device::opencl_c_version>() << "\n";
+
       // do_query<info::device::vendor>(device, "info::device::vendor");
       cout << GRAY << "    Max. work item dimensions: " << NC
            << device.get_info<info::device::max_work_item_dimensions>() << "\n";
@@ -49,6 +52,13 @@ int main(void) {
            << device.get_info<info::device::mem_base_addr_align>() << "\n";
       cout << GRAY << "    partition_max_sub_devices: " << NC
            << device.get_info<info::device::partition_max_sub_devices>()
+           << "\n";
+      cout << GRAY << "                Image support? " << NC
+           << (device.get_info<info::device::image_support>() ? "Yes" : "No")
+           << "\n";
+      cout << GRAY << "               Unified Memory? " << NC
+           << (device.get_info<info::device::host_unified_memory>() ? "Yes"
+                                                                    : "No")
            << "\n";
       cout << GRAY << "                   Extensions:\n";
       for (auto const& extension :
